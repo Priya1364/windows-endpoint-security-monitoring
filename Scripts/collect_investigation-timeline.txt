@@ -1,0 +1,9 @@
+
+    Time             Event                  Investigation
+--------------------------------------------------------------
+09:00 AM         Event ID 4624          Successful logon
+09:05 AM         Event ID 4625          Failed logon
+09:06 AM         Event ID 4625          Failed logon
+09:07 AM         Event ID 4625          Failed logon
+09:10 AM         Process inventory      Examine running processes
+09:15 AM         Service inventory     Examine background services

@@ -1,0 +1,114 @@
+Windows Endpoint Security Monitoring and Investigation Lab
+
+1. Project Information
+
+Project: Windows Endpoint Security Monitoring and Investigation Lab
+Week: 1
+Operating System: Windows 10 Pro, 64-bit
+Primary Tool: Windows Event Viewer
+Supporting Tools: PowerShell, Sysmon
+
+2. Objective
+
+The objective is to investigate Windows security logs, identify successful and failed logon events, understand event fields, and document findings for security monitoring.
+
+3. Events Investigated
+
+Event ID 4624 — Successful Logon
+
+Description: An account successfully logged on.
+
+Observation:
+The inspected event showed the SYSTEM account and Logon ID 0x3E7.
+
+Initial assessment:
+This is consistent with a Windows SYSTEM logon session. The event alone does not indicate malicious activity.
+
+Event ID 4625 — Failed Logon
+
+Description: An account logon attempt failed.
+
+Observation:
+Three matching events appeared in the filtered Security log.
+
+Details from the inspected event:
+
+- Subject domain: WORKGROUP
+- Subject logon ID: 0x3E7
+- Target user name: -
+- Target user SID: S-1-0-0
+- Status: 0xC000006D
+- Substatus: 0xC0000380
+- Logon type: 2
+- Logon process: User32
+- Authentication package: Negotiate
+
+Initial assessment:
+The event records a failed interactive logon attempt. The available details are insufficient to determine the cause or attribute the attempt to a specific person or process.
+
+Further investigation is required to interpret the status codes and correlate this event with surrounding security events.
+
+4. Investigation Procedure
+
+1. Opened Windows Event Viewer.
+2. Navigated to Windows Logs > Security.
+3. Inspected Event ID 4624.
+4. Filtered the Security log for Event ID 4625.
+5. Opened an event and inspected its Details tab.
+6. Recorded the available event fields.
+7. Avoided classifying the activity as malicious without sufficient evidence.
+
+5. Evidence
+
+Screenshot 1: Windows Security log
+Screenshot 2: Successful logon event — Event ID 4624
+Screenshot 3: Filtered failed logon events — Event ID 4625
+Screenshot 4: Event ID 4625 details
+
+6. Conclusion
+
+Windows Security logs provide useful evidence for investigating authentication activity.
+
+Event ID 4624 records successful logons, while Event ID 4625 records failed logon attempts.
+
+A SOC analyst should examine timestamps, account information, logon types, status codes, and related events before deciding whether an event represents suspicious activity.
+
+7. Current Project Status
+
+Completed:
+
+- Opened Windows Security logs.
+- Inspected a successful logon event.
+- Filtered failed logon events.
+- Examined the details of a failed logon event.
+
+
+8. Windows Process Investigation
+
+Objective:
+Collect information about running processes and understand their role in endpoint monitoring.
+
+Procedure:
+1. Opened PowerShell.
+2. Retrieved running process information using Get-Process.
+3. Collected process names, process IDs, CPU usage, and memory usage.
+4. Saved the process inventory to process-inventory.txt.
+5. Examined a specific process and its available properties.
+
+Evidence:
+process-inventory.txt
+
+SOC Analyst Observation:
+Process names and resource usage provide useful information about
+running applications. Process names alone are insufficient to
+determine whether activity is malicious.
+
+Further investigation may require executable paths, parent processes,
+command-line arguments, timestamps, and related security events.Pending:
+
+- Interpret the status and substatus codes.
+- Examine related events and timestamps.
+- Investigate process and system activity.
+- Complete the evidence collection and final report.
+  
+  
