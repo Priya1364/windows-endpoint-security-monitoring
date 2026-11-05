@@ -1,98 +1,70 @@
-Windows Endpoint Security Monitoring and Investigation Lab
+Week 1: Windows Endpoint Security Monitoring and Investigation Lab
 
 1. Project Overview
 
-Project: Windows Endpoint Security Monitoring and Investigation Lab
-Project Series: SOC Analyst — Week 1
-Operating System: Windows 10 Pro, 64-bit
-Tools: Windows Event Viewer, PowerShell, Sysmon, Python (optional)
+This project focuses on monitoring and investigating Windows endpoint security events using Windows Event Viewer, PowerShell, and Sysmon.
 
-2. Problem Statement
+The objective is to understand authentication activity, process execution, service configurations, and basic security detection techniques.
 
-Windows endpoints generate security events related to authentication, processes, services, and system activity.
+2. Tools Used
 
-Without proper investigation, suspicious behavior may remain unnoticed. This project demonstrates a lightweight method for collecting and analysing Windows security evidence without requiring a centralized SIEM.
+- Windows 10 Pro
+- Windows Event Viewer
+- PowerShell
+- Sysmon
+- Git and GitHub
 
-3. Project Objectives
+ 3. Investigation Activities
 
-- Monitor Windows security events.
-- Investigate successful and failed logons.
-- Collect process and service information.
-- Develop a basic failed-logon detection.
-- Preserve investigation evidence.
-- Create an incident timeline.
-- Document findings in a structured report.
+### Authentication Investigation
 
-4. Methodology
+Windows Security events were examined to understand successful and failed authentication activity.
 
-The investigation follows these stages:
+Event ID 4624 represents a successful logon.
 
-1. Windows Security log examination.
-2. Authentication event investigation.
-3. Process inventory collection.
-4. Service inventory collection.
-5. Failed-logon detection.
-6. Evidence preservation.
-7. Timeline creation.
-8. Investigation reporting.
+Event ID 4625 represents a failed logon.
 
-5. Findings
+### Process Investigation
 
-Successful Logon Investigation
+PowerShell was used to collect running process information, including process names, process IDs, CPU usage, and memory usage.
 
-Event ID 4624 was examined.
+## Service Investigation
 
-The inspected event showed the SYSTEM account and Logon ID 0x3E7.
+Windows service information was collected to examine service names, running states, startup configurations, and executable paths.
 
-This is consistent with a Windows SYSTEM logon session. The event alone does not indicate malicious activity.
+## Evidence Collection
 
-Failed Logon Investigation
+Security events, process information, and service information were exported into CSV files.
 
-Event ID 4625 was examined.
+An investigation timeline was created to organize authentication events chronologically.
 
-Three matching events were visible in the filtered Security log.
+4. Detection Engineering
 
-The inspected event contained Status 0xC000006D, SubStatus 0xC0000380, and Logon Type 2.
+A basic failed-logon detection was developed to identify repeated authentication failures.
 
-These values require contextual interpretation. The event alone is insufficient to establish malicious activity.
+The detection is intended to identify activity requiring further investigation.
 
-Process Investigation
+Repeated failed logons do not independently prove a brute-force attack.
 
-Running processes were collected using PowerShell.
+5. Evidence Collected
 
-Process names, process IDs, CPU usage, and memory usage were recorded.
+- Authentication event records
+- Process inventory
+- Windows service inventory
+- Investigation timeline
+- Sysmon process events, when available
+- Event Viewer screenshots
 
-Service Investigation
+6. Limitations
 
-Windows service information was collected.
+The project uses a single Windows endpoint and does not include centralized SIEM monitoring.
 
-Service names, states, startup modes, and executable paths were recorded for review.
+Detection results depend on the available Windows audit events and Sysmon configuration.
 
-Detection Engineering
+Additional evidence may be necessary to confirm suspicious activity.
 
-A basic rule was developed to identify groups of failed logons sharing the same target account and source IP.
+7. Conclusion
 
-The detection is intended for investigation and requires validation against normal activity.
+This project provided practical experience in Windows endpoint monitoring, authentication investigation, process analysis, service investigation, and evidence collection.
 
-6. Evidence Collection
-
-The project stores collected evidence in CSV, TXT, and EVTX formats.
-
-Screenshots document the investigation procedure and the observed event details.
-
-7. Limitations
-
-- The project uses a single Windows endpoint.
-- The investigation is not a centralized SIEM deployment.
-- Available events depend on Windows audit configuration.
-- The failed-logon detection may generate false positives.
-- A failed logon does not independently establish an attack.
-- Additional endpoint and network evidence may be needed for attribution.
-
-8. Conclusion
-
-This project demonstrates a practical approach to Windows endpoint security monitoring using built-in tools.
-
-The investigation covered authentication events, process activity, service information, detection logic, and evidence preservation.
-
-The project provides a foundation for more advanced SOC activities such as threat hunting, event correlation, incident response, and detection engineering.
+The project establishes a foundation for advanced SOC activities such as threat hunting, event correlation, incident response, and detection engineering.
